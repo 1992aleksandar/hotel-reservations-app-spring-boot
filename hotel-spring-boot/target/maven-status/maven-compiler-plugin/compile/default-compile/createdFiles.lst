@@ -1,0 +1,11 @@
+com\hotelapp\swb\security\SecurityConfiguration.class
+com\hotelapp\swb\entity\RoomEntity.class
+com\hotelapp\swb\ApplicationStartup.class
+com\hotelapp\swb\entity\BookingEntity.class
+com\hotelapp\swb\service\HotelService.class
+com\hotelapp\swb\HotelAppSwbApplication.class
+com\hotelapp\swb\repository\RoomRepository.class
+com\hotelapp\swb\entity\compositeprimarykeys\BookingId.class
+com\hotelapp\swb\repository\BookingRepository.class
+com\hotelapp\swb\repository\HotelRepository.class
+com\hotelapp\swb\entity\HotelEntity.class
