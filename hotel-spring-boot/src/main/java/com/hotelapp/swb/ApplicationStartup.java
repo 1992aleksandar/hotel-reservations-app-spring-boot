@@ -19,6 +19,10 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 	 */
 	@Override
 	public void onApplicationEvent(final ApplicationReadyEvent event) {
-		hotelService.customerCommunication();
+		try {
+			hotelService.customerCommunication();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

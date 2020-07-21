@@ -54,5 +54,35 @@ public class HotelEntity {
 	
 	public void setHotelRooms(HashSet<RoomEntity> hotelRooms) {
 		this.hotelRooms = hotelRooms;
+	}
+	
+	public void addRoom(RoomEntity room) {
+		this.getHotelRooms().add(room);
+		room.setHotel(this);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((hotelId == null) ? 0 : hotelId);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HotelEntity other = (HotelEntity) obj;
+		if (hotelId == null) {
+			if (other.hotelId != null)
+				return false;
+		} else if (!hotelId.equals(other.hotelId))
+			return false;
+		return true;
 	}		
 }

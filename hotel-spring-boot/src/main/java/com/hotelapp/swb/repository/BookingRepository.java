@@ -10,6 +10,5 @@ import com.hotelapp.swb.entity.RoomEntity;
 
 @Repository
 public interface BookingRepository extends CrudRepository<BookingEntity, Integer> {			
-		 public BookingEntity getBookingByBookingNo(Integer roomId);
 		 public List<BookingEntity> findAllByRoom(RoomEntity room);
 }

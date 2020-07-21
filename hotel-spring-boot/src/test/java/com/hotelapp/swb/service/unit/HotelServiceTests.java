@@ -1,26 +1,35 @@
 package com.hotelapp.swb.service.unit;
 
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.transaction.Transactional;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
+import com.hotelapp.swb.ApplicationStartup;
 import com.hotelapp.swb.HotelAppSwbApplication;
 import com.hotelapp.swb.service.HotelService;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = HotelAppSwbApplication.class, properties = { "spring.config.name=myapp-test-h2",
 		"myapp.trx.datasource.url=jdbc:h2:mem:trxServiceStatus" })	
+@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class HotelServiceTests {
 
 	@Autowired
 	HotelService hotelService;
+	
+	@MockBean
+	private ApplicationStartup applicationStartup;
 
 	@Test
 	@Transactional
@@ -29,8 +38,8 @@ public class HotelServiceTests {
 
 		Boolean booking1 = hotelService.booking(-4, 2);
 		Boolean booking2 = hotelService.booking(200, 400);
-		assertEquals(false, booking1);
-		assertEquals(false, booking2);
+		assertFalse(booking1);
+		assertFalse(booking2);
 	}
 
 	@Test
@@ -45,12 +54,12 @@ public class HotelServiceTests {
 		Boolean booking5 = hotelService.booking(6, 6);
 		Boolean booking6 = hotelService.booking(0, 4);
 
-		assertEquals(true, booking1);
-		assertEquals(true, booking2);
-		assertEquals(true, booking3);
-		assertEquals(true, booking4);
-		assertEquals(true, booking5);
-		assertEquals(true, booking6);
+		assertTrue(booking1);
+		assertTrue(booking2);
+		assertTrue(booking3);
+		assertTrue(booking4);
+		assertTrue(booking5);
+		assertTrue(booking6);
 	}
 
 	@Test
@@ -63,10 +72,10 @@ public class HotelServiceTests {
 		Boolean booking3 = hotelService.booking(1, 9);
 		Boolean booking4 = hotelService.booking(0, 15);
 
-		assertEquals(true, booking1);
-		assertEquals(true, booking2);
-		assertEquals(true, booking3);
-		assertEquals(false, booking4);
+		assertTrue(booking1);
+		assertTrue(booking2);
+		assertTrue(booking3);
+		assertFalse(booking4);
 	}
 
 	@Test
@@ -80,11 +89,11 @@ public class HotelServiceTests {
 		Boolean booking4 = hotelService.booking(2, 5);
 		Boolean booking5 = hotelService.booking(4, 9);
 
-		assertEquals(true, booking1);
-		assertEquals(true, booking2);
-		assertEquals(true, booking3);
-		assertEquals(false, booking4);
-		assertEquals(true, booking5);
+		assertTrue(booking1);
+		assertTrue(booking2);
+		assertTrue(booking3);
+		assertFalse(booking4);
+		assertTrue(booking5);
 	}
 
 	@Test
@@ -102,14 +111,14 @@ public class HotelServiceTests {
 		Boolean booking8 = hotelService.booking(8, 10);
 		Boolean booking9 = hotelService.booking(8, 9);
 
-		assertEquals(true, booking1);
-		assertEquals(true, booking2);
-		assertEquals(false, booking3);
-		assertEquals(true, booking4);
-		assertEquals(true, booking5);
-		assertEquals(true, booking6);
-		assertEquals(true, booking7);
-		assertEquals(false, booking8);
-		assertEquals(true, booking9);
+		assertTrue(booking1);
+		assertTrue(booking2);
+		assertFalse(booking3);
+		assertTrue(booking4);
+		assertTrue(booking5);
+		assertTrue(booking6);
+		assertTrue(booking7);
+		assertFalse(booking8);
+		assertTrue(booking9);
 	}
 }

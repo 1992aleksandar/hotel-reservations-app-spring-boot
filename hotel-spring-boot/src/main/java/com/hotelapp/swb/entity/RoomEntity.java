@@ -21,16 +21,14 @@ public class RoomEntity {
 	@OneToMany(mappedBy="room",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<BookingEntity> bookings;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private  HotelEntity hotel;
 	
 	public RoomEntity() {
 	}
 
-	public RoomEntity(Integer roomNo, HotelEntity hotel) {	
-		this.roomNo = roomNo;
-		this.hotel = hotel;
-		hotel.getHotelRooms().add(this);
+	public RoomEntity(Integer roomNo) {	
+		this.roomNo = roomNo;		
 		this.bookings=new HashSet<>();
 	}
 
@@ -74,12 +72,18 @@ public class RoomEntity {
 		
 		return distance;		
 	}
+	
+	public void addBooking(BookingEntity booking) {
+		this.getBookings().add(booking);
+		booking.setRoom(this);
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((roomNo == null) ? 0 : roomNo.hashCode());
+		result = prime * result + ((hotel == null) ? 0 : hotel.getHotelId());
+		result = prime * result + ((roomNo == null) ? 0 : roomNo);
 		return result;
 	}
 
@@ -92,11 +96,16 @@ public class RoomEntity {
 		if (getClass() != obj.getClass())
 			return false;
 		RoomEntity other = (RoomEntity) obj;
+		if (hotel == null) {
+			if (other.hotel != null)
+				return false;
+		} else if (!hotel.getHotelId().equals(other.hotel.getHotelId()))
+			return false;
 		if (roomNo == null) {
 			if (other.roomNo != null)
 				return false;
 		} else if (!roomNo.equals(other.roomNo))
 			return false;
 		return true;
-	}
+	}		
 }
